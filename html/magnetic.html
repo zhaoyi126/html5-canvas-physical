@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>magnetic movement</title>
+    <title>Two electrons</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<script type="text/javascript" src="../js/jquery.min.js"></script>
+	<script type="text/javascript" src="../js/angular.min.js"></script>
+	<script type="text/javascript" src="../js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="../js/bootstrap.js"></script>
+	<script type="text/javascript" src="../js/chart.min.js"></script>
+	<link href="../css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
+	<link href="../css/bootstrap-theme.min.css" media="screen" rel="stylesheet" type="text/css">
+	<link href="../css/style.css" media="screen" rel="stylesheet" type="text/css">
+    <style>
+      #canvas {
+         background: #fefefe;
+         margin-top: 20px;
+         margin-left: 20px;
+         border: thin solid lightgray;
+         -webkit-box-shadow: 4px 4px 8px rgba(0,0,0,0.5);
+         -moz-box-shadow: 4px 4px 8px rgba(0,0,0,0.5);
+         box-shadow: 4px 4px 8px rgba(0,0,0,0.5);
+      }
+    </style>
+  </head>
+   <body>
+      <canvas id='canvas' width='800' height='600'>
+         Canvas not supported
+      </canvas>
+      <div id="panel">
+	      <label class="col-sm-10 control-label" for="positionx">ball positionX:</label>
+	      <input class="col-sm-10 col-sm-offset-2" id="positionx" value="100"/>
+	      <label class="col-sm-10 control-label" for="positiony">ball positionY:</label>
+	      <input class="col-sm-10 col-sm-offset-2" id="positiony" value="400"/>
+	      <label class="col-sm-10 control-label" for="velocity">ball velocity:</label>
+	      <input class="col-sm-10 col-sm-offset-2" id="velocity" value="60"/>
+	      <label class="col-sm-10 control-label" for="charge">ball charge:</label>
+	      <input class="col-sm-10 col-sm-offset-2" id="charge" value="1" readonly="true"/>
+	      <button id="start" class="btn btn-primary col-sm-offset-2" onclick="start();">start</button>
+	      <button id="reset" class="btn btn-primary" onclick="reset();">again</button>
+      </div>
+	<script src = '../js/lib/requestNextAnimationFrame.js'></script>
+    <script src = '../js/lib/sprites.js'></script>
+    <script src = '../js/canvas/magnetic.js'></script>
+  </body>
+</html>

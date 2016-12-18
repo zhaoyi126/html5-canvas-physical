@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  	<title>A Bounce movement</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<script type="text/javascript" src="../js/jquery.min.js"></script>
+	<script type="text/javascript" src="../js/angular.min.js"></script>
+	<script type="text/javascript" src="../js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="../js/bootstrap.js"></script>
+	<link href="../css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
+	<link href="../css/bootstrap-theme.min.css" media="screen" rel="stylesheet" type="text/css">
+	<link href="../css/style.css" media="screen" rel="stylesheet" type="text/css">
+    <style>
+      #canvas {
+         background: #fefefe;
+         margin-top: 20px;
+         margin-left: 20px;
+         border: thin solid lightgray;
+         -webkit-box-shadow: 4px 4px 8px rgba(0,0,0,0.5);
+         -moz-box-shadow: 4px 4px 8px rgba(0,0,0,0.5);
+         box-shadow: 4px 4px 8px rgba(0,0,0,0.5);
+      	float: left;
+      }
+     #panel {
+      	margin-left: 20px;
+      	margin-top: 20px;
+      	float: left;
+      	width: 200px;
+      }
+    </style>
+  </head>
+
+   <body>
+   	  <h1 style="margin-left:20px;">A Bounce Movement</h1>
+      <canvas id='canvas' width='600' height='400'>
+         Canvas not supported
+      </canvas>
+      <div id="panel">
+      <label class="col-sm-2 control-label" for="velocityX">velocityX:</label>
+      <br/>
+      <input class="col-sm-8" id="velocityX" value="20"/><em class="helper" title=volecity(0-20)">(?)</em>
+      <br/>
+      <br/>
+      <label class="col-sm-2 control-label" for="Attenuation">Attenuation:</label>
+      <br/>
+      <input class="col-sm-8" id="Attenuation" value="1"/><em class="helper" title="v(after bounce)/v(before bounce)">(?)</em>
+      <br/>
+      <br/>
+   <!-- 
+      <label class="col-sm-2 control-label hidden" for="runTime">runTime:</label>
+      <br/>
+      <input class="col-sm-10 hidden" id="runTime" disabled="disabled"/>
+      <br/>
+      <br/> -->
+      <button id="start" class="btn btn-primary" onclick="startFun();">start</button>
+      <button id="stop" class="btn btn-primary" onclick="stopFun();">reset</button>
+      <br/>
+      	  <label>ball data:</label>
+	      <table class="table">
+	      <tr>
+	      <th>time</th>
+	      <th>Vx</th>
+	      <th>Vy</th>
+	      </tr>
+	      </table>
+      </div>
+	<script src = '../js/lib/requestNextAnimationFrame.js'></script>
+    <script src = '../js/lib/sprites.js'></script>
+    <script src = '../js/lib/shapes.js'></script>
+    <script src = '../js/canvas/reflect.js'></script>
+  </body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>A ball rolling on the slope</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<script type="text/javascript" src="../js/jquery.min.js"></script>
+	<script type="text/javascript" src="../js/angular.min.js"></script>
+	<script type="text/javascript" src="../js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="../js/bootstrap.js"></script>
+	<link href="../css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
+	<link href="../css/bootstrap-theme.min.css" media="screen" rel="stylesheet" type="text/css">
+	<link href="../css/style.css" media="screen" rel="stylesheet" type="text/css">
+    <style>
+      #canvas {
+         background: #fefefe;
+         margin-top: 20px;
+         margin-left: 20px;
+         border: thin solid lightgray;
+         -webkit-box-shadow: 4px 4px 8px rgba(0,0,0,0.5);
+         -moz-box-shadow: 4px 4px 8px rgba(0,0,0,0.5);
+         box-shadow: 4px 4px 8px rgba(0,0,0,0.5);
+      	 float: left;
+      }
+      
+      #panel {
+      	margin-left: 20px;
+      	margin-top: 20px;
+      	float: left;
+      	width: 200px;
+      }
+      
+
+    </style>
+  </head>
+
+   <body>
+   	  <h1 style="margin-left:20px;">A ball rolling on the slope</h1>
+      <canvas id='canvas' width='900' height='500'>
+         Canvas not supported
+      </canvas>
+      <div id="panel">
+	      <button id="start" class="btn btn-primary" onclick="startFun();">start</button>
+	      <button id="stop" class="btn btn-primary" onclick="stopFun();">reset</button>
+     
+	      <br/>
+	      <label>ball A data：</label>
+	      <table class="tableA table">
+	      <tr>
+	      <th>time</th>
+	      <th>Vx</th>
+	      <th>Vy</th>
+	      <th>Sx</th>
+	      <th>Sy</th>
+	      </tr>
+	      </table>
+	      <br/>
+       </div>
+	<script src = '../js/lib/requestNextAnimationFrame.js'></script>
+    <script src = '../js/lib/sprites.js'></script>
+    <script src = '../js/canvas/slope.js'></script>
+  </body>
+</html>

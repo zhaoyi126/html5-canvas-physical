@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Two electrons</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<script type="text/javascript" src="../js/jquery.min.js"></script>
+	<script type="text/javascript" src="../js/angular.min.js"></script>
+	<script type="text/javascript" src="../js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="../js/bootstrap.js"></script>
+	<link href="../css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
+	<link href="../css/bootstrap-theme.min.css" media="screen" rel="stylesheet" type="text/css">
+	<link href="../css/style.css" media="screen" rel="stylesheet" type="text/css">
+  </head>
+   <body>
+   <h1 style="margin-left:20px;">Two electrons</h1>
+      <canvas id='canvas' width='700' height='400'>
+         Canvas not supported
+      </canvas>
+
+      <div id="panel">
+<!--       <h4>before collision:</h4>
+      <label class="col-sm-2 control-label" for="">type:</label>
+      <select class="col-sm-offset-2 col-sm-10" id="collisiontype" onchange="changetype()">
+      <option value="1" selected>elasticity</option>
+      <option value="2">rigidity</option>
+      </select>
+      <label class="col-sm-10 control-label" for="velocity">ball A velocityX:</label>
+      <input class="col-sm-10 col-sm-offset-2" id="velocity" value="60"/>
+      <label class="col-sm-10 control-label" for="qualityratio">M(a)/M(b):</label>
+      <br/>
+      <input class="col-sm-10 col-sm-offset-2" id="qualityratio" value="1"/>
+      <br/> -->
+      <label class="col-sm-10 control-label" for="positionA">ball A positionX:<span class="help" title="scope(0-350)">(?)</span></label>
+      <input class="col-sm-10 col-sm-offset-2" id="positionA" value="20"/>
+      <label class="col-sm-10 control-label" for="positionB">ball B positionX:<span class="help" title="scope(350-700)">(?)</span></label>
+      <input class="col-sm-10 col-sm-offset-2" id="positionB" value="680"/>
+            <label class="col-sm-10 control-label" for="chargeA">ball A charge:<span class="help" title="1:positive electron,-1:negative">(?)</span></label>
+      <input class="col-sm-10 col-sm-offset-2" id="chargeA" value="1"/>
+            <label class="col-sm-10 control-label" for="chargeB">ball B charge:<span class="help" title="1:positive electron,-1:negative">(?)</span></label>
+      <input class="col-sm-10 col-sm-offset-2" id="chargeB" value="-1"/>
+      <button id="start" class="btn btn-primary" onclick="start();">start</button>
+      <button id="reset" class="btn btn-primary" onclick="reset();">reset</button>
+      <button id="middle" class="btn btn-primary" onclick="middle();">middle</button>
+      </div>
+    <script src = '../js/lib/requestNextAnimationFrame.js'></script>
+    <script src = '../js/canvas/shape_collision.js'></script>
+    <script src = '../js/lib/stopwatch.js'></script>
+    <script src = '../js/lib/animationTimer.js'></script>
+    <script src = '../js/canvas/electric.js'></script>
+  </body>
+</html>

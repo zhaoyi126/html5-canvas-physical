@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <title>chat</title>
+     <meta name=keywords content="unfollowed,minority">
+     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <meta name="viewport" content="width=device-width, initial-scale=1">
+	<!--<meta http-equiv="refresh" content="1">,-->
+	<link href="../css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
+	<link href="../css/bootstrap-theme.min.css" media="screen" rel="stylesheet" type="text/css">
+	<link href="../css/style.css" media="screen" rel="stylesheet" type="text/css">
+	<link href="../img/favicon.ico" rel="shortcut icon" type="image/vnd.microsoft.icon">
+	<script type="text/javascript" src="../js/jquery.min.js"></script>
+	<script type="text/javascript" src="../js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="../js/libws/swfobject.js"></script>
+	<script type="text/javascript" src="../js/libws/web_socket.js"></script>
+<style>
+</style>
+</head>
+
+<body>
+  <div class="container">
+	    <div class="row clearfix">
+	        <div class="col-md-1 column">
+	        </div>
+	        <div class="col-md-6 column">
+	           <div class="thumbnail">
+	               <div class="caption" id="dialog"></div>
+	           </div>
+	           <form onsubmit="onSubmit(); return false;">
+	                <select style="margin-bottom:8px" id="client_list">
+                        <option value="all">all</option>
+                    </select>
+                    <textarea class="textarea thumbnail" id="textarea"></textarea>
+                    <div class="say-btn"><input type="submit" class="btn btn-primary" value="send" /></div>
+               </form>
+               <div>
+               &nbsp;&nbsp;&nbsp;&nbsp;<b>room list:</b>（you are in&nbsp;room <?php echo isset($_GET['room_id'])&&intval($_GET['room_id'])>0 ? intval($_GET['room_id']):1; ?>）<br>
+               &nbsp;&nbsp;&nbsp;&nbsp;<a href="../chat?room_id=1">room1</a>
+               &nbsp;&nbsp;&nbsp;&nbsp;<a href="../chat?room_id=2">room2</a>
+               &nbsp;&nbsp;&nbsp;&nbsp;<a href="../chat?room_id=3">room3</a>
+               &nbsp;&nbsp;&nbsp;&nbsp;<a href="../chat?room_id=4">room4</a>
+               </p>
+               <input type="text" id="pwd" value="pwd"></input></p>
+               <input type="text" id="name" value="xiaoyi"></input></p >
+               <button class="btn btn-primary" onclick="enter()">enter</button>
+               <br><br>
+               </div>
+               <p class="cp">Powered by <a href="http://www.workerman.net/workerman-chat" target="_blank">workerman-chat</a></p>
+	        </div>
+	        <div class="col-md-3 column">
+	           <div class="thumbnail">
+                   <div class="caption" id="userlist"></div>
+               </div>
+	        </div>
+	    </div>
+    </div>
+
+<script>
+if (typeof console == "undefined") {    this.console = { log: function (msg) {  } };}
+var path = '..';
+WEB_SOCKET_SWF_LOCATION = path+"/swf/WebSocketMain.swf";
+WEB_SOCKET_DEBUG = true;
+var ws, name, client_list={};
+
+function enter() {
+	
+	connect();
+}
+
+// 连接服务端
+function connect() {
+   // 创建websocket
+   ws = new WebSocket("ws://xxx.xxx.xxx.xxx:xxxx");
+   // 当socket连接打开时，输入用户名
+   ws.onopen = onopen;
+   // 当有消息时根据消息类型显示不同信息
+   ws.onmessage = onmessage; 
+   ws.onclose = function() {
+	  console.log("连接关闭，定时重连");
+      connect();
+   };
+   ws.onerror = function() {
+ 	  console.log("出现错误");
+   }; 
+}
+
+// 连接建立时发送登录信息
+function onopen()
+{
+    if($('name') != undefined && $('#name').val() != '') {
+    	name=$('#name').val();
+    } else {
+    	alert('name is empty!');
+    	return;
+    }
+	//name = 'xiaoy2';
+    if(!name)
+    {
+        show_prompt();
+    }
+    // 登录
+    var room_key = '';
+    if($('pwd') != undefined && $('#pwd').val() != '') {
+    	room_key=$('#pwd').val();
+    } else {
+    	alert('pwd is empty!');
+    	return;
+    }
+
+    var login_data = '{"type":"login","client_name":"'+name.replace(/"/g, '\\"')+'","room_id":"<?php echo isset($_GET['room_id']) ? $_GET['room_id'] : 1?>","room_key":"'+room_key+'"}';
+    console.log("websocket connected,send login data:"+login_data);
+    ws.send(login_data);
+}
+
+// 服务端发来消息时
+function onmessage(e)
+{
+    console.log(e.data);
+    var data = eval("("+e.data+")");
+    switch(data['type']){
+        // 服务端ping客户端
+        case 'ping':
+            ws.send('{"type":"pong"}');
+            break;;
+        // 登录 更新用户列表
+        case 'login':
+            //{"type":"login","client_id":xxx,"client_name":"xxx","client_list":"[...]","time":"xxx"}
+            //say(data['client_id'], data['client_name'],  data['client_name']+' enter the room', data['time']);
+            
+            if(data['client_list'])
+            {
+                client_list = data['client_list'];
+            }
+            else
+            {
+                client_list[data['client_id']] = data['client_name']; 
+            }
+            flush_client_list();
+            console.log(data['client_name']+"login success");
+            break;
+        // 发言
+        case 'say':
+            //{"type":"say","from_client_id":xxx,"to_client_id":"all/client_id","content":"xxx","time":"xxx"}
+            say(data['from_client_id'], data['from_client_name'], data['content'], data['time']);
+            break;
+        // 用户退出 更新用户列表
+        case 'logout':
+            //{"type":"logout","client_id":xxx,"time":"xxx"}
+            say(data['from_client_id'], data['from_client_name'], data['from_client_name']+' quit', data['time']);
+            delete client_list[data['from_client_id']];
+            flush_client_list();
+    }
+}
+
+// 输入姓名
+function show_prompt(){  
+    name = prompt('enter your name(any is ok)：', '');
+    if(!name || name=='null'){  
+        name = 'Visitor';
+    }
+}  
+
+// 提交对话
+function onSubmit() {
+  var input = document.getElementById("textarea");
+  if(input.value == '' || input.value == null || input.value.trim() == '') {
+	  return;
+  }
+  var to_client_id = $("#client_list option:selected").attr("value");
+  var to_client_name = $("#client_list option:selected").text();
+  ws.send('{"type":"say","to_client_id":"'+to_client_id+'","to_client_name":"'+to_client_name+'","content":"'+input.value.replace(/"/g, '\\"').replace(/\n/g,'\\n').replace(/\r/g, '\\r')+'"}');
+  input.value = "";
+  input.focus();
+}
+
+// 刷新用户列表框
+function flush_client_list(){
+	var userlist_window = $("#userlist");
+	var client_list_slelect = $("#client_list");
+	userlist_window.empty();
+	client_list_slelect.empty();
+	userlist_window.append('<h4>users online</h4><ul>');
+	client_list_slelect.append('<option value="all" id="cli_all">all</option>');
+	for(var p in client_list){
+        userlist_window.append('<li id="'+p+'">'+client_list[p]+'</li>');
+        client_list_slelect.append('<option value="'+p+'">'+client_list[p]+'</option>');
+    }
+	$("#client_list").val(select_client_id);
+	userlist_window.append('</ul>');
+}
+
+// 发言
+function say(from_client_id, from_client_name, content, time){
+	//$("#dialog").append('<div class="speech_item"><img src="http://lorempixel.com/38/38/?'+from_client_id+'" class="user_icon" /> '+from_client_name+' <br> '+time+'<div style="clear:both;"></div><p class="triangle-isosceles top">'+content+'</p> </div>');
+	$("#dialog").append('<div class="speech_item">'+from_client_name+' : <span class="bold" style="font-weight:bold;">'+content+'</span></div>');
+}
+
+$(function(){
+	select_client_id = 'all';
+    $("#client_list").change(function(){
+         select_client_id = $("#client_list option:selected").attr("value");
+    });
+});
+</script>
+</html>
+<!--end-->
+<!--pen-->

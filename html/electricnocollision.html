@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Two electrons</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<script type="text/javascript" src="../js/jquery.min.js"></script>
+	<script type="text/javascript" src="../js/angular.min.js"></script>
+	<script type="text/javascript" src="../js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="../js/bootstrap.js"></script>
+	<script type="text/javascript" src="../js/chart.min.js"></script>
+	<link href="../css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
+	<link href="../css/bootstrap-theme.min.css" media="screen" rel="stylesheet" type="text/css">
+	<link href="../css/style.css" media="screen" rel="stylesheet" type="text/css">
+  </head>
+   <body>
+   <h1>Two electrons</h1>
+      <canvas id='canvas' width='700' height='400'>
+         Canvas not supported
+      </canvas>
+
+      <div id="panel">
+<!--       <h4>before collision:</h4>
+      <label class="col-sm-2 control-label" for="">type:</label>
+      <select class="col-sm-offset-2 col-sm-10" id="collisiontype" onchange="changetype()">
+      <option value="1" selected>elasticity</option>
+      <option value="2">rigidity</option>
+      </select>
+      <label class="col-sm-10 control-label" for="velocity">ball A velocityX:</label>
+      <input class="col-sm-10 col-sm-offset-2" id="velocity" value="60"/>
+      <label class="col-sm-10 control-label" for="qualityratio">M(a)/M(b):</label>
+      <br/>
+      <input class="col-sm-10 col-sm-offset-2" id="qualityratio" value="1"/>
+      <br/> -->
+      <label class="col-sm-10 control-label" for="positionA">ball A positionX:<span class="help" title="scope(0-350)">(?)</span></label>
+      <input class="col-sm-10 col-sm-offset-2" id="positionA" value="20"/>
+      <label class="col-sm-10 control-label" for="positionB">ball B positionX:<span class="help" title="scope(positionA-700)">(?)</span></label>
+      <input class="col-sm-10 col-sm-offset-2" id="positionB" value="680"/>
+      <label class="col-sm-10 control-label" for="velocityA">ball A velocity:</label>
+      <input class="col-sm-10 col-sm-offset-2" id="velocityA" value="60"/>
+      
+      <label class="col-sm-10 control-label hidden" for="chargeA">ball A charge:</label>
+      <input class="col-sm-10 col-sm-offset-2 hidden" id="chargeA" value="1"/>
+      <label class="col-sm-10 control-label hidden" for="chargeB">ball B charge:</label>
+      <input class="col-sm-10 col-sm-offset-2 hidden" id="chargeB" value="1"/>
+      <button id="start" class="btn btn-primary col-sm-offset-2" onclick="start();">start</button>
+      <button id="reset" class="btn btn-primary" onclick="reset();">reset</button>
+    <!--   <button id="drawchart" class="btn btn-primary" onclick="drawChart();">draw</button>
+      <button id="middle" class="btn btn-primary hidden" onclick="middle();">middle</button> -->
+      </div>
+      
+	 <div style="width:800px;height:640px;display:block;float:left;margin-top:20px;">
+		<h4 class="col-sm-10 col-sm-offset-2"">the velocity changes as the time goes</h4>
+		<canvas id="myChart"></canvas>
+	 </div>
+    <script src = '../js/lib/requestNextAnimationFrame.js'></script>
+    <script src = '../js/canvas/shape_collision.js'></script>
+    <script src = '../js/lib/stopwatch.js'></script>
+    <script src = '../js/lib/animationTimer.js'></script>
+    <script src = '../js/canvas/electricnocollision.js'></script>
+  </body>
+</html>

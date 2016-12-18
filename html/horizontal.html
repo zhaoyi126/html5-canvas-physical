@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>horizontal movement</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<script type="text/javascript" src="../js/jquery.min.js"></script>
+	<script type="text/javascript" src="../js/angular.min.js"></script>
+	<script type="text/javascript" src="../js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="../js/bootstrap.js"></script>
+	<link href="../css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
+	<link href="../css/bootstrap-theme.min.css" media="screen" rel="stylesheet" type="text/css">
+	<link href="../css/style.css" media="screen" rel="stylesheet" type="text/css">
+    <style>
+      #canvas {
+         background: #fefefe;
+         margin-top: 20px;
+         margin-left: 20px;
+         border: thin solid lightgray;
+         -webkit-box-shadow: 4px 4px 8px rgba(0,0,0,0.5);
+         -moz-box-shadow: 4px 4px 8px rgba(0,0,0,0.5);
+         box-shadow: 4px 4px 8px rgba(0,0,0,0.5);
+      	float: left;
+      }
+      
+      .startPoint{
+      	left:78px;
+      	top:260px;
+		position: absolute;
+      }
+      .endPoint{
+      	left:570px;
+      	top:260px;
+		position: absolute;
+      }
+      
+      .runtime{
+      	left:300px;
+      	top:380px;
+		position: absolute;
+      }
+      
+      #panel {
+      	margin-left: 20px;
+      	margin-top: 20px;
+      	float: left;
+      	width: 200px;
+      	display:block;
+      }
+    </style>
+  </head>
+
+   <body>
+   <h1 style="margin-left:20px;">Horizontal Movement</h1>
+      <canvas id='canvas' width='700' height='400'>
+         Canvas not supported
+      </canvas>
+      
+      <div><span class="startPoint" id="startPoint"></span></div>
+      <div><span class="endPoint" id="endPoint"></span>
+      <div><span class="runtime" id="runtime"></span>
+      
+       <div id="panel">
+	      <button id="start" class="btn btn-primary" onclick="startFun();">start</button>
+	      <button id="stop" class="btn btn-primary" onclick="stopFun();">reset</button>
+       </div>
+    <script type="text/javascript" src="../js/jquery.min.js"></script>
+	<script src = '../js/lib/requestNextAnimationFrame.js'></script>
+    <script src = '../js/lib/sprites.js'></script>
+    <script src = '../js/canvas/horizontal_ball.js'></script>
+    
+  </body>
+</html>
